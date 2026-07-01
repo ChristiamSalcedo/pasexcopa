@@ -1,0 +1,103 @@
+/* ==========================================================
+   CARDS.CSS — Tarjetas de bodegas
+========================================================== */
+
+/* ----------------------------------------------------------
+   WINERY CARD (carrusel horizontal — Página 1)
+---------------------------------------------------------- */
+.winery-card {
+  flex-shrink: 0;
+  width: 270px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition:
+    transform   var(--duration-base) var(--ease),
+    box-shadow  var(--duration-base) var(--ease);
+}
+
+.winery-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+
+.winery-card__image {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease);
+}
+
+.winery-card:hover .winery-card__image {
+  transform: scale(1.06);
+}
+
+.winery-card__body {
+  padding: var(--space-5) var(--space-5);
+}
+
+.winery-card__name {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.winery-card__location {
+  font-size: var(--text-sm);
+  color: var(--color-gray);
+  margin-top: var(--space-1);
+}
+
+/* ----------------------------------------------------------
+   BODEGA CARD (grilla 4 columnas — Página 2)
+---------------------------------------------------------- */
+.bodega-card {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform  var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease);
+}
+
+.bodega-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+
+.bodega-card__image-wrap {
+  height: 215px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.bodega-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease);
+}
+
+.bodega-card:hover .bodega-card__image {
+  transform: scale(1.06);
+}
+
+.bodega-card__body {
+  padding: var(--space-5);
+}
+
+.bodega-card__name {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.bodega-card__location {
+  font-size: var(--text-sm);
+  color: var(--color-gray);
+  margin-top: var(--space-1);
+  margin-bottom: var(--space-4);
+}

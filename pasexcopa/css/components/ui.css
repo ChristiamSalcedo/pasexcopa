@@ -1,0 +1,272 @@
+/* ==========================================================
+   FOOTER.CSS — Pie de página
+========================================================== */
+
+.footer {
+  background-color: var(--color-wine-dark);
+  padding: var(--space-12) var(--page-px) var(--space-6);
+}
+
+.footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer__social {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.footer__social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, .2);
+  color: rgba(255, 255, 255, .65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    color        var(--duration-base) var(--ease),
+    border-color var(--duration-base) var(--ease),
+    background   var(--duration-base) var(--ease),
+    transform    var(--duration-base) var(--ease);
+}
+
+.footer__social-link svg {
+  width: 17px;
+  height: 17px;
+}
+
+.footer__social-link:hover {
+  color: var(--color-white);
+  border-color: var(--color-white);
+  background-color: rgba(255, 255, 255, .1);
+  transform: translateY(-3px);
+}
+
+.footer__legal {
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  margin-top: var(--space-10);
+  padding-top: var(--space-5);
+  text-align: center;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-widest);
+  color: rgba(255, 255, 255, .35);
+}
+
+.footer__disclaimer {
+  font-size: 8.5px; 
+  text-transform: uppercase; 
+  letter-spacing: var(--tracking-wider, 0.05em); 
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.35); 
+  max-width: 900px;
+  margin-inline: auto; 
+  margin-bottom: var(--space-4);
+  text-align: center;
+}
+
+.footer__disclaimer strong {
+  color: rgba(255, 255, 255, 0.55); 
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: var(--space-10) var(--space-6) var(--space-6);
+  }
+
+  .footer__inner {
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+}
+
+
+/* ==========================================================
+   NEWSLETTER.CSS — Sección de suscripción
+========================================================== */
+
+.newsletter {
+  background-color: var(--color-cream);
+  padding-block: var(--page-py);
+}
+
+.newsletter__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+}
+
+.newsletter__heading {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-3xl);
+  color: var(--color-wine);
+  margin-bottom: var(--space-2);
+}
+
+.newsletter__description {
+  font-size: var(--text-sm);
+  color: var(--color-gray);
+}
+
+.newsletter__form {
+  display: flex;
+  gap: var(--space-3);
+  flex-shrink: 0;
+  min-width: 400px;
+}
+
+.newsletter__input {
+  flex: 1;
+  padding: .8125rem var(--space-5);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  background-color: var(--color-white);
+  outline: none;
+  transition: border-color var(--duration-base);
+}
+
+.newsletter__input:focus {
+  border-color: var(--color-wine);
+}
+
+@media (max-width: 1100px) {
+  .newsletter__inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .newsletter__form {
+    min-width: 0;
+    width: 100%;
+    max-width: 480px;
+  }
+}
+
+@media (max-width: 480px) {
+  .newsletter__form {
+    flex-direction: column;
+  }
+}
+
+
+/* ==========================================================
+   MODAL.CSS — Ventana emergente "Reserva exitosa"
+========================================================== */
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .55);
+  backdrop-filter: blur(6px);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.is-open {
+  display: flex;
+}
+
+.modal {
+  background-color: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-12) var(--space-10);
+  text-align: center;
+  max-width: 420px;
+  width: 92%;
+  box-shadow: var(--shadow-lg);
+  animation: modal-enter var(--duration-slow) var(--ease-spring);
+}
+
+@keyframes modal-enter {
+  from { transform: scale(.82); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.modal__icon {
+  font-size: 3.5rem;
+  margin-bottom: var(--space-4);
+}
+
+.modal__title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  color: var(--color-wine);
+  margin-bottom: var(--space-3);
+}
+
+.modal__body {
+  font-size: var(--text-sm);
+  color: var(--color-gray);
+  line-height: var(--leading-loose);
+  margin-bottom: var(--space-8);
+}
+
+
+/* ==========================================================
+   TOAST.CSS — Notificaciones flotantes
+========================================================== */
+
+.toast {
+  position: fixed;
+  bottom: var(--space-10);
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background-color: var(--color-wine-dark);
+  color: var(--color-white);
+  padding: .875rem var(--space-8);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: var(--tracking-normal);
+  box-shadow: var(--shadow-md);
+  z-index: 3000;
+  white-space: nowrap;
+  transition: transform var(--duration-base) var(--ease);
+}
+
+.toast.is-visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+
+/* ==========================================================
+   WHATSAPP.CSS — Botón flotante de WhatsApp
+========================================================== */
+
+.whatsapp-btn {
+  position: fixed;
+  bottom: var(--space-8);
+  right: var(--space-8);
+  z-index: 999;
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-full);
+  background-color: #25D366;
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, .45);
+  transition:
+    transform   var(--duration-base) var(--ease),
+    box-shadow  var(--duration-base) var(--ease);
+}
+
+.whatsapp-btn svg {
+  width: 28px;
+  height: 28px;
+}
+
+.whatsapp-btn:hover {
+  transform: scale(1.12) translateY(-2px);
+  box-shadow: 0 8px 28px rgba(37, 211, 102, .55);
+}

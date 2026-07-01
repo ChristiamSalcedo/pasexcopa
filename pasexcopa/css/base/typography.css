@@ -1,0 +1,60 @@
+/* ==========================================================
+   TYPOGRAPHY.CSS — Estilos de texto compartidos
+========================================================== */
+
+/* ----------------------------------------------------------
+   EYEBROW (etiqueta pequeña sobre títulos)
+---------------------------------------------------------- */
+.eyebrow {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: var(--space-3);
+}
+
+/* ----------------------------------------------------------
+   DISPLAY HEADING (títulos grandes con estilo de marca)
+---------------------------------------------------------- */
+.heading-display {
+  font-family: var(--font-display);
+  font-size: var(--text-5xl);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+.heading-display em {
+  font-style: italic;
+  color: var(--color-wine);
+}
+
+/* ----------------------------------------------------------
+   DIVIDER (línea dorada decorativa)
+---------------------------------------------------------- */
+.divider {
+  width: 48px;
+  height: 2px;
+  background-color: var(--color-gold);
+  margin-block: var(--space-5);
+}
+
+.divider--center {
+  margin-inline: auto;
+}
+
+/* ----------------------------------------------------------
+   BODY TEXT
+---------------------------------------------------------- */
+.text-body {
+  font-size: var(--text-base);
+  line-height: var(--leading-loose);
+  color: var(--color-gray);
+}
+
+.text-small {
+  font-size: var(--text-sm);
+  color: var(--color-gray);
+}

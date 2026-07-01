@@ -1,0 +1,138 @@
+/* ==========================================================
+   FORMS.CSS — Campos de formulario (variante oscura y clara)
+========================================================== */
+
+/* ----------------------------------------------------------
+   CAMPO BASE
+---------------------------------------------------------- */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.form-field__label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+.form-field__input,
+.form-field__select,
+.form-field__textarea {
+  width: 100%;
+  padding: .8125rem var(--space-4);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  outline: none;
+  transition:
+    border-color     var(--duration-base),
+    background-color var(--duration-base);
+}
+
+.form-field__textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.form-field__select {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+/* ----------------------------------------------------------
+   VARIANTE OSCURA (sobre fondo vino — contacto y reservas)
+---------------------------------------------------------- */
+.form-field--dark .form-field__label {
+  color: rgba(255, 255, 255, .55);
+}
+
+.form-field--dark .form-field__input,
+.form-field--dark .form-field__select,
+.form-field--dark .form-field__textarea {
+  background-color: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .18);
+  color: var(--color-white);
+}
+
+.form-field--dark .form-field__input::placeholder,
+.form-field--dark .form-field__textarea::placeholder {
+  color: rgba(255, 255, 255, .38);
+}
+
+.form-field--dark .form-field__input:focus,
+.form-field--dark .form-field__select:focus,
+.form-field--dark .form-field__textarea:focus {
+  border-color: var(--color-gold);
+  background-color: rgba(255, 255, 255, .13);
+}
+
+.form-field--dark .form-field__select option {
+  background-color: var(--color-wine-dark);
+  color: var(--color-white);
+}
+
+input[type="date"].form-field__input::-webkit-calendar-picker-indicator {
+  filter: invert(1) opacity(.6);
+  cursor: pointer;
+}
+
+/* ----------------------------------------------------------
+   GRID DE FORMULARIO
+---------------------------------------------------------- */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.form-grid__full {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- INTEGRACIÓN DE INTL-TEL-INPUT CON PASEXCOPA --- */
+
+.iti {
+  display: inline-block;
+  width: 100% !important;
+  position: relative;
+}
+
+.iti input.form-field__input {
+  width: 100% !important;
+  padding-left: 52px !important; 
+}
+
+.iti__country-list {
+  background-color: #3f0918 !important; 
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 6px;
+  color: #ffffff !important;
+  font-family: 'Inter', sans-serif;
+  max-width: 300px;
+  z-index: 1000 !important; 
+}
+
+.iti__country.iti__highlight {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.iti__dial-code {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.iti__arrow {
+  border-top-color: #ffffff !important;
+}
+.iti__arrow--up {
+  border-bottom-color: #ffffff !important;
+}

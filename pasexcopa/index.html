@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PaseXcopa — Un pase, una copa, muchas bodegas por recorrer en la Provincia de Buenos Aires." />
+  <title>PaseXcopa — Inicio</title>
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- CSS: Base -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css" />
+  <link rel="stylesheet" href="css/base/variables.css" />
+  <link rel="stylesheet" href="css/base/reset.css" />
+  <link rel="stylesheet" href="css/base/typography.css" />
+
+  <!-- CSS: Componentes -->
+  <link rel="stylesheet" href="css/components/navbar.css" />
+  <link rel="stylesheet" href="css/components/buttons.css" />
+  <link rel="stylesheet" href="css/components/forms.css" />
+  <link rel="stylesheet" href="css/components/cards.css" />
+  <link rel="stylesheet" href="css/components/ui.css" />
+
+  <!-- CSS: Utilidades -->
+  <link rel="stylesheet" href="css/utils/animations.css" />
+
+  <!-- CSS: Página -->
+  <link rel="stylesheet" href="css/pages/pages.css" />
+</head>
+<body>
+
+  <!-- =====================================================
+       COMPONENTES GLOBALES (presentes en todas las páginas)
+  ====================================================== -->
+
+  <!-- WhatsApp Flotante -->
+  <!-- CONFIGURACIÓN: reemplazá el número en js/core/config.js -->
+  <a id="whatsapp-btn" href="#" target="_blank" class="whatsapp-btn" aria-label="Contactanos por WhatsApp">
+    <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.549 4.107 1.51 5.836L.057 23.999l6.29-1.648A11.927 11.927 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.796 9.796 0 01-5.001-1.371l-.36-.213-3.733.978.997-3.644-.234-.374A9.771 9.771 0 012.182 12C2.182 6.565 6.565 2.182 12 2.182 17.435 2.182 21.818 6.565 21.818 12S17.435 21.818 12 21.818z"/>
+    </svg>
+  </a>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- =====================================================
+       NAVBAR
+  ====================================================== -->
+  <header>
+  <nav class="navbar" aria-label="Navegación principal">
+    <a href="index.html" class="navbar__logo" aria-label="paseXcopa — Inicio">
+      <img 
+        src="images/logo-ppc.png" 
+        alt="Logo paseXcopa" 
+        class="navbar__logo-icon"
+        aria-hidden="true"
+      />
+      <span class="navbar__logo-name">paseXcopa</span>
+    </a>
+
+      <ul class="navbar__links" role="list">
+        <li><a href="#about"   class="navbar__link" onclick="event.preventDefault(); scrollToSection('about')">¿Quiénes somos?</a></li>
+        <li><a href="bodegas.html" class="navbar__link">Bodegas adheridas</a></li>
+        <li><a href="reservas.html" class="navbar__link">Reservas</a></li>
+        <li><a href="#contacto" class="navbar__link" onclick="event.preventDefault(); scrollToSection('contacto')">Contacto</a></li>
+      </ul>
+
+      <button class="navbar__hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false"
+              onclick="Navbar.toggle('mobile-menu','hamburger')">
+        <span class="navbar__hamburger-bar"></span>
+        <span class="navbar__hamburger-bar"></span>
+        <span class="navbar__hamburger-bar"></span>
+      </button>
+    </nav>
+
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Menú móvil">
+      <a href="#about"        class="mobile-menu__link" onclick="Navbar.close('mobile-menu','hamburger'); scrollToSection('about')">¿Quiénes somos?</a>
+      <a href="bodegas.html"  class="mobile-menu__link" onclick="Navbar.close('mobile-menu','hamburger')">Bodegas adheridas</a>
+      <a href="reservas.html" class="mobile-menu__link" onclick="Navbar.close('mobile-menu','hamburger')">Reservas</a>
+      <a href="#contacto"     class="mobile-menu__link" onclick="Navbar.close('mobile-menu','hamburger'); scrollToSection('contacto')">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- =====================================================
+         SECCIÓN 2 — HERO CAROUSEL
+    ====================================================== -->
+    <section class="hero" aria-label="Hero">
+
+      <!-- Slide 1 -->
+      <div class="hero__slide is-active" id="slide-0">
+        <img class="hero__image" src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1920&q=80" alt="Copa de vino siendo servida" />
+        <div class="hero__content">
+          <span class="hero__eyebrow">Bodega Experience</span>
+          <h1 class="hero__title">
+            Un pase, una copa,<br>
+            <em>muchas bodegas por recorrer.</em>
+          </h1>
+          <a href="reservas.html" class="btn btn--wine">Reservá ahora</a>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="hero__slide" id="slide-1">
+        <img class="hero__image" src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=1920&q=80" alt="Interior de una bodega" />
+        <div class="hero__content">
+          <span class="hero__eyebrow">Acceso premium</span>
+          <h1 class="hero__title">
+            Accedé a degustaciones en bodegas<br>
+            <em>sin pagar recorridos guiados.</em>
+          </h1>
+          <a href="reservas.html" class="btn btn--wine">Reservá ahora</a>
+        </div>
+      </div>
+
+      <!-- Dots de navegación -->
+      <div class="hero__dots" role="tablist" aria-label="Slides del carrusel">
+        <button class="hero__dot is-active" onclick="HeroCarousel.goTo(0)" aria-label="Slide 1" role="tab"></button>
+        <button class="hero__dot"           onclick="HeroCarousel.goTo(1)" aria-label="Slide 2" role="tab"></button>
+      </div>
+
+    </section>
+
+    <!-- =====================================================
+         SECCIÓN 3 — QUIÉNES SOMOS + MAPA
+    ====================================================== -->
+    <section class="section" id="about" aria-labelledby="about-heading">
+      <div class="container about-grid">
+
+        <!-- Texto -->
+        <div class="reveal">
+          <span class="eyebrow">Nuestra propuesta</span>
+          <h2 class="heading-display" id="about-heading">
+            Hacemos que el vino sea<br><em>un viaje accesible.</em>
+          </h2>
+          <div class="divider"></div>
+          <p class="text-body">
+            Queremos que más personas tengan el poder de recorrer las instalaciones
+            de las bodegas más emblemáticas, vivir la experiencia de la cata y
+            disfrutar de una copa de vino premium sin gastar de más.
+          </p>
+
+          <div class="about-steps">
+            <div class="step">
+              <div class="step__number" aria-hidden="true">1</div>
+              <div>
+                <h3 class="step__title">Explorá y elegí</h3>
+                <p class="step__description">Navegá por nuestro mapa interactivo y seleccioná la bodega que deseás descubrir hoy.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step__number" aria-hidden="true">2</div>
+              <div>
+                <h3 class="step__title">Adquirí tu pase</h3>
+                <p class="step__description">Comprá tu ticket digital de forma rápida. Un pase único, un precio completamente accesible.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step__number" aria-hidden="true">3</div>
+              <div>
+                <h3 class="step__title">Recorré y brindá</h3>
+                <p class="step__description">Presentá tu paseXcopa en la entrada, recorré las instalaciones libremente y disfrutá de tu copa.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mapa -->
+        <div class="reveal reveal--delay-2">
+          <div id="map" role="application" aria-label="Mapa interactivo de bodegas"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SECCIÓN 4 — CARRUSEL HORIZONTAL DE BODEGAS
+    ====================================================== -->
+    <section class="track-section" aria-labelledby="track-heading">
+      <div class="track-section__header reveal">
+        <span class="eyebrow">Bodegas adheridas</span>
+        <h2 class="heading-display" id="track-heading">Elegí tu <em>próxima parada</em></h2>
+      </div>
+
+      <div class="track-wrap" aria-label="Carrusel de bodegas">
+        <div class="track" id="winery-track" role="list"></div>
+      </div>
+
+      <div class="track-section__footer">
+        <a href="bodegas.html" class="btn btn--outline">Ver todas las bodegas</a>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SECCIÓN 5 — CONTÁCTANOS
+    ====================================================== -->
+    <section class="contact" id="contacto" aria-labelledby="contact-heading">
+
+    <div class="reservas-image-wrap reveal" aria-hidden="true">
+      <img class="reservas-image" src="https://images.unsplash.com/photo-1474722883778-792e7990302f?w=600&q=80" alt="Botellas de vino premium" />
+    </div>
+
+    <div class="reservas-form-side reveal reveal--delay-1">
+      <span class="eyebrow">Escribinos</span>
+      <h2 class="contact-title" id="contact-heading" style="color: var(--color-white); margin-top: var(--space-2); margin-bottom: var(--space-6); font-family: var(--font-display); font-size: var(--text-4xl); font-weight: 600;">
+        Contáctanos:
+      </h2>
+
+      <form class="contact__form" id="contact-form" novalidate>
+        <div class="form-grid">
+          
+          <div class="form-field form-field--dark">
+            <label class="form-field__label" for="c-nombre">Nombre</label>
+            <input class="form-field__input" id="c-nombre" type="text" name="nombre" placeholder="Tu nombre" required autocomplete="given-name" />
+          </div>
+          
+          <div class="form-field form-field--dark">
+            <label class="form-field__label" for="c-apellido">Apellido</label>
+            <input class="form-field__input" id="c-apellido" type="text" name="apellido" placeholder="Tu apellido" required autocomplete="family-name" />
+          </div>
+          
+          <div class="form-field form-field--dark">
+            <label class="form-field__label" for="c-email">Email</label>
+            <input class="form-field__input" id="c-email" type="email" name="email" placeholder="tu@email.com" required autocomplete="email" />
+          </div>
+          
+          <div class="form-field form-field--dark">
+            <label class="form-field__label" for="c-telefono">Teléfono</label>
+            <input class="form-field__input" id="c-telefono" type="tel" name="telefono" autocomplete="tel" />
+          </div>
+          
+          <div class="form-field form-field--dark form-grid__full">
+            <label class="form-field__label" for="c-pais">País</label>
+            <input class="form-field__input" id="c-pais" type="text" name="pais" placeholder="Argentina" readonly autocomplete="country-name" />
+          </div>
+          
+          <div class="form-field form-field--dark form-grid__full">
+            <label class="form-field__label" for="c-mensaje">Mensaje</label>
+            <textarea class="form-field__textarea" id="c-mensaje" name="mensaje" placeholder="¿En qué podemos ayudarte?" required></textarea>
+          </div>
+
+        </div>
+
+        <div class="contact__form-cta" style="margin-top: var(--space-6);">
+          <button type="submit" class="btn btn--wine">Enviar mensaje</button>
+        </div>
+      </form>
+    </div>
+
+  </section>
+
+    <!-- =====================================================
+         SECCIÓN 6 — NEWSLETTER
+    ====================================================== -->
+    <section class="newsletter" aria-labelledby="nl-heading">
+      <div class="container newsletter__inner reveal">
+        <div class="newsletter__text">
+          <h2 class="newsletter__heading" id="nl-heading">Recibí las mejores propuestas en tu mail:</h2>
+          <p class="newsletter__description">Suscribite para enterarte primero de nuevos miembros, promociones y más.</p>
+        </div>
+        <form class="newsletter__form" id="newsletter-form" novalidate>
+          <label for="nl-email" class="visually-hidden">Dirección de email</label>
+          <input class="newsletter__input" id="nl-email" type="email" name="email" placeholder="Ingresá tu dirección de email" required />
+          <button type="submit" class="btn btn--wine">Suscribirme</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =====================================================
+       SECCIÓN 7 — FOOTER
+  ====================================================== -->
+  <footer class="footer" aria-label="Pie de página">
+  <div class="footer__inner">
+    
+    <a href="index.html" class="navbar__logo" aria-label="paseXcopa — Volver al inicio">
+      <img 
+        src="images/logo-ppc1.png" 
+        alt="Logo paseXcopa" 
+        class="navbar__logo-icon"
+        aria-hidden="true"
+      />
+    </a>
+
+    <div class="footer__social">
+      <a href="https://facebook.com/pasexcopa" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+      <a href="mailto:salcedochristian04@gmail.com" class="footer__social-link" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
+      <a href="https://instagram.com/pasexcopa" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+    </div>
+
+  </div> <p class="footer__disclaimer">
+    <strong>Aviso académico:</strong> Esta plataforma es un proyecto desarrollado exclusivamente con fines educativos y de integración para portafolio profesional. Las bodegas, logos e imágenes citadas son propiedad de sus respectivos dueños y se utilizan únicamente de forma ilustrativa. El sitio <strong>no comercializa servicios ni procesa reservas reales</strong>.
+  </p>
+  
+  <p class="footer__legal">BEBER CON MODERACIÓN. PROHIBIDA SU VENTA A MENORES DE 18 AÑOS. NO COMPARTIR CONTENIDO CON MENORES DE 18 AÑOS.</p>
+</footer>
+
+  <!-- =====================================================
+       SCRIPTS — En este orden estricto
+  ====================================================== -->
+  <script async
+        defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBekVlPQBsY8qH8i5gr89bgdzF_iiI6_FQ&callback=initMap">
+  </script>
+
+  <!-- Core -->
+  <script src="js/core/config.js"></script>
+  <script src="js/core/data.js"></script>
+
+  <!-- Componentes -->
+  <script src="js/components/components.js"></script>
+
+  <!-- Página -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+
+  <script src="js/pages/home.js"></script>
+
+  <!-- Configurar WhatsApp con el número del config -->
+  <script>
+    document.getElementById('whatsapp-btn').href = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}`;
+  </script>
+
+</body>
+</html>

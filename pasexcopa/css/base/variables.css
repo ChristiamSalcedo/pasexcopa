@@ -1,0 +1,103 @@
+/* ==========================================================
+   VARIABLES.CSS — Design Tokens.
+   Todos los valores de diseño centralizados aquí.
+   No modificar valores directamente en otros archivos CSS.
+========================================================== */
+
+:root {
+
+  /* ----------------------------------------------------------
+     COLORES DE MARCA
+  ---------------------------------------------------------- */
+  --color-wine:       #8B1538;
+  --color-wine-dark:  #5C0D24;
+  --color-wine-mid:   #A01A40;
+  --color-gold:       #C9A96E;
+  --color-cream:      #F7F3EE;
+  --color-white:      #FFFFFF;
+
+  /* ----------------------------------------------------------
+     COLORES DE TEXTO Y UI
+  ---------------------------------------------------------- */
+  --color-ink:        #111111;
+  --color-gray:       #666666;
+  --color-border:     #E4DDD6;
+
+  /* ----------------------------------------------------------
+     TIPOGRAFÍA
+  ---------------------------------------------------------- */
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body:    'Inter', sans-serif;
+
+  --text-xs:   .6875rem;   /* 11px */
+  --text-sm:   .8125rem;   /* 13px */
+  --text-base: .9375rem;   /* 15px */
+  --text-md:   1rem;       /* 16px */
+  --text-lg:   1.125rem;   /* 18px */
+  --text-xl:   1.25rem;    /* 20px */
+  --text-2xl:  1.5rem;     /* 24px */
+  --text-3xl:  2rem;       /* 32px */
+  --text-4xl:  2.6rem;     /* ~42px */
+  --text-5xl:  clamp(2rem, 3.5vw, 3.2rem);
+  --text-hero: clamp(2.2rem, 4.5vw, 4rem);
+
+  --leading-tight:  1.15;
+  --leading-snug:   1.4;
+  --leading-normal: 1.65;
+  --leading-loose:  1.8;
+
+  --tracking-tight:  -.01em;
+  --tracking-normal: .02em;
+  --tracking-wide:   .09em;
+  --tracking-wider:  .13em;
+  --tracking-widest: .22em;
+
+  /* ----------------------------------------------------------
+     ESPACIADO (escala 4px base)
+  ---------------------------------------------------------- */
+  --space-1:  .25rem;   /*  4px */
+  --space-2:  .5rem;    /*  8px */
+  --space-3:  .75rem;   /* 12px */
+  --space-4:  1rem;     /* 16px */
+  --space-5:  1.25rem;  /* 20px */
+  --space-6:  1.5rem;   /* 24px */
+  --space-8:  2rem;     /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+
+  /* ----------------------------------------------------------
+     LAYOUT
+  ---------------------------------------------------------- */
+  --nav-height: 76px;
+  --max-width:  1240px;
+  --page-px:    4rem;        
+  --page-py:    6rem;        
+
+  /* ----------------------------------------------------------
+     BORDER RADIUS
+  ---------------------------------------------------------- */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+
+  /* ----------------------------------------------------------
+     SOMBRAS (teñidas con el color de marca)
+  ---------------------------------------------------------- */
+  --shadow-sm: 0 2px 12px rgba(139, 21, 56, .10);
+  --shadow-md: 0 8px 32px rgba(139, 21, 56, .18);
+  --shadow-lg: 0 20px 60px rgba(139, 21, 56, .22);
+
+  /* ----------------------------------------------------------
+     ANIMACIONES
+  ---------------------------------------------------------- */
+  --ease:          cubic-bezier(.4, 0, .2, 1);
+  --ease-spring:   cubic-bezier(.34, 1.56, .64, 1);
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 600ms;
+}

@@ -1,0 +1,167 @@
+/* ==========================================================
+   NAVBAR.CSS — Barra de navegación
+========================================================== */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: var(--page-px);
+  background: rgba(255, 255, 255, .96);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 rgba(139, 21, 56, .07);
+  transition: background var(--duration-base);
+}
+
+/* ----------------------------------------------------------
+   LOGO
+---------------------------------------------------------- */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
+}
+
+.navbar__logo:hover .navbar__logo-icon {
+  transform: scale(1.05);
+}
+
+.navbar__logo-icon {
+  height: 50px;
+  width: auto;
+  transition: transform var(--duration-base) var(--ease);
+}
+
+.navbar__logo-name {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-wine);
+  letter-spacing: var(--tracking-normal);
+}
+
+/* ----------------------------------------------------------
+   LINKS DE NAVEGACIÓN
+---------------------------------------------------------- */
+.navbar__links {
+  display: flex;
+  gap: var(--space-10);
+}
+
+.navbar__link {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-wine);
+  position: relative;
+  padding-bottom: 3px;
+  transition: color var(--duration-fast);
+  white-space: nowrap;
+}
+
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: var(--color-wine);
+  transition: width var(--duration-base) var(--ease);
+}
+
+.navbar__link:hover {
+  color: var(--color-wine-dark);
+}
+
+.navbar__link:hover::after {
+  width: 100%;
+}
+
+/* ----------------------------------------------------------
+   HAMBURGER (sólo visible en móvil)
+---------------------------------------------------------- */
+.navbar__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: var(--space-1);
+  z-index: 1001;
+}
+
+.navbar__hamburger-bar {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background-color: var(--color-wine);
+  transform-origin: center;
+  transition: all var(--duration-base) var(--ease);
+}
+
+.navbar__hamburger.is-open .navbar__hamburger-bar:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.navbar__hamburger.is-open .navbar__hamburger-bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.navbar__hamburger.is-open .navbar__hamburger-bar:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ----------------------------------------------------------
+   MENÚ MÓVIL (overlay)
+---------------------------------------------------------- */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-wine-dark);
+  z-index: 890;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-10);
+}
+
+.mobile-menu.is-open {
+  display: flex;
+}
+
+.mobile-menu__link {
+  color: rgba(255, 255, 255, .85);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  letter-spacing: var(--tracking-normal);
+  transition: color var(--duration-fast);
+}
+
+.mobile-menu__link:hover {
+  color: var(--color-gold);
+}
+
+/* ----------------------------------------------------------
+   RESPONSIVE
+---------------------------------------------------------- */
+@media (max-width: 768px) {
+  .navbar {
+    padding-inline: var(--space-6);
+  }
+
+  .navbar__links {
+    display: none;
+  }
+
+  .navbar__hamburger {
+    display: flex;
+  }
+}
