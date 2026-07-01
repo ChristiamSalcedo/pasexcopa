@@ -48,6 +48,11 @@ const HeroCarousel = (() => {
 /* ----------------------------------------------------------
    MAPA INTERACTIVO (GOOGLE MAPS)
 ---------------------------------------------------------- */
+const mapsScript = document.getElementById('google-maps-script');
+if (mapsScript && typeof CONFIG !== 'undefined') {
+  mapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${CONFIG.MAP.API_KEY}&callback=initMap`;
+}
+
 function initMap() {
   const mapElement = document.getElementById("map");
   if (!mapElement) return;

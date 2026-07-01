@@ -33,7 +33,8 @@ const CONFIG = Object.freeze({
     lng: -60.0
   },
 
-  ZOOM: 7
+  ZOOM: 7,
+  API_KEY: 'AIzaSyAneVl1yB3hS-09c9Exq0NJAVOcWHaWL2s'
    },
 
   /* ----------------------------------------------------------
