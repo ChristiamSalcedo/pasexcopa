@@ -63,18 +63,17 @@ const ReservasForm = (() => {
       const response = await fetch(`${CONFIG.API_BASE_URL}/reservas`, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify(data),
+        body:    JSON.stringify(formData),
       });
 
       const result = await response.json();
 
       if (!response.ok) {
-        // Si el backend rebotó por express-validator, extraemos el primer error
-        const errorMsg = result.errors ? result.errors[0].msg : 'Error en la respuesta del servidor';
-        throw new Error(errorMsg);
-      }
+    throw new Error(result.message || 'Error al procesar la reserva en el servidor.');
+    } 
 
-      console.log('✓ Reserva guardada en MySQL con éxito. ID asignado:', result.id);
+      // 2. Si el servidor respondió OK, recién ahí limpiamos y mostramos el éxito real
+      console.log('[ReservasForm] Éxito real:', result.id || result.caseNumber);
       
       form.reset();
       if (typeof Modal !== 'undefined') Modal.open();
