@@ -48,10 +48,31 @@ const HeroCarousel = (() => {
 /* ----------------------------------------------------------
    MAPA INTERACTIVO (GOOGLE MAPS)
 ---------------------------------------------------------- */
-const mapsScript = document.getElementById('google-maps-script');
-if (mapsScript && typeof CONFIG !== 'undefined') {
-  mapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${CONFIG.MAP.API_KEY}&callback=initMap`;
+/* ----------------------------------------------------------
+   CARGA DINÁMICA Y SEGURA DE GOOGLE MAPS
+---------------------------------------------------------- */
+async function cargarGoogleMaps() {
+  const mapsScript = document.getElementById('google-maps-script');
+  if (!mapsScript) return;
+
+  try {
+    // Le pedimos la clave de forma segura a tu backend de Render
+    const response = await fetch('https://pasexcopa.onrender.com/api/config/maps');
+    const data = await response.json();
+
+    if (data.apiKey) {
+      // Inyectamos el script con la clave real directamente en el navegador
+      mapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${data.apiKey}&callback=initMap`;
+    } else {
+      console.error('No se recibió la API Key del servidor.');
+    }
+  } catch (error) {
+    console.error('Error al conectar con el backend para cargar el mapa:', error);
+  }
 }
+
+// Ejecutamos la carga al levantar el archivo
+cargarGoogleMaps();
 
 function initMap() {
   const mapElement = document.getElementById("map");

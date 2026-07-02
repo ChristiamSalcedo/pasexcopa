@@ -34,7 +34,7 @@ const CONFIG = Object.freeze({
   },
 
   ZOOM: 7,
-  API_KEY: window.ENV?.GOOGLE_MAPS_KEY || ''
+  API_KEY: ''
    },
 
   /* ----------------------------------------------------------
