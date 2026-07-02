@@ -192,7 +192,7 @@ const ContactForm = (() => {
       const response = await fetch(`${CONFIG.API_BASE_URL}/contacto`, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(data)
       });
 
       const result = await response.json();

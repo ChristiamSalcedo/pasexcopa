@@ -63,7 +63,7 @@ const ReservasForm = (() => {
       const response = await fetch(`${CONFIG.API_BASE_URL}/reservas`, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify(formData),
+        body:    JSON.stringify(data),
       });
 
       const result = await response.json();
