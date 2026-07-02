@@ -34,7 +34,11 @@ const app = express();
 ---------------------------------------------------------- */
 
 // Seguridad: cabeceras HTTP seguras
-app.use(helmet());
+// Seguridad: cabeceras HTTP configuradas para soportar API externa y mapas
+app.use(helmet({
+  contentSecurityPolicy: false,
+  crossOriginEmbedderPolicy: false
+}));
 
 // CORS: sólo acepta peticiones del frontend configurado
 app.use(cors({
