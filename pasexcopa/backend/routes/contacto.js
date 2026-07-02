@@ -15,10 +15,12 @@ const router = express.Router();
    TRANSPORTER DE NODEMAILER (Configuración Directa Express)
 ---------------------------------------------------------- */
 const transporter = nodemailer.createTransport({
-  service: 'gmail', 
+  host: process.env.SMTP_HOST || 'smtp.gmail.com',
+  port: parseInt(process.env.SMTP_PORT) || 587,
+  secure: false, // false para puerto 587
   auth: {
-    user: 'salcedochristian04@gmail.com', 
-    pass: 'yqilfoqixlxjstns',             
+    user: process.env.SMTP_USER || 'salcedochristian04@gmail.com', 
+    pass: process.env.SMTP_PASS // 👈 Ahora sí lee la clave nueva de 16 letras desde Render
   },
 });
 
