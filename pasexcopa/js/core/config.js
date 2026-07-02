@@ -53,5 +53,5 @@ const CONFIG = Object.freeze({
   /* ----------------------------------------------------------
      BACKEND API (si se usa el servidor Node.js)
   ---------------------------------------------------------- */
-  API_BASE_URL: 'http://localhost:3000/api',
+  API_BASE_URL: 'https://pasexcopa.onrender.com/api',
 });
