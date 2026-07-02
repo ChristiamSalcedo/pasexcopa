@@ -1,5 +1,5 @@
 /* ============================================================
-   ROUTES/RESERVAS.JS — Rutas de /api/reservas (Migrado a MySQL)
+   ROUTES/RESERVAS.JS — Rutas de /api/reservas (Migrado a PostgreSQL/Supabase)
 ============================================================ */
 
 'use strict';
@@ -62,17 +62,18 @@ router.post('/', reservaValidations, async (req, res) => {
   try {
     const sql = `
       INSERT INTO reservas (nombre, apellido, email, bodega, fecha, cantidad_pases)
-      VALUES (?, ?, ?, ?, ?, ?)
+      VALUES ($1, $2, $3, $4, $5, $6)
+      RETURNING id
     `;
 
     const cantidadPases = parseInt(pases) || 1;
 
-    const [result] = await db.execute(sql, [nombre, apellido, email, bodega, fecha, cantidadPases]);
+    const { rows } = await db.query(sql, [nombre, apellido, email, bodega, fecha, cantidadPases]);
 
     return res.status(201).json({
       ok:      true,
       message: 'Reserva registrada exitosamente.',
-      id:      result.insertId,
+      id:      rows[0].id,
     });
   } catch (err) {
     console.error('[POST /api/reservas]', err.message);
@@ -85,9 +86,9 @@ router.post('/', reservaValidations, async (req, res) => {
 ---------------------------------------------------------- */
 router.get('/', async (req, res) => {
   try {
-    const [reservas] = await db.query('SELECT * FROM reservas ORDER BY created_at DESC');
+    const { rows } = await db.query('SELECT * FROM reservas ORDER BY created_at DESC');
 
-    return res.json({ ok: true, data: reservas });
+    return res.json({ ok: true, data: rows });
   } catch (err) {
     console.error('[GET /api/reservas]', err.message);
     return res.status(500).json({ ok: false, message: 'Error interno del servidor.' });
@@ -107,10 +108,10 @@ router.patch('/:id', async (req, res) => {
   }
 
   try {
-    const sql = 'UPDATE reservas SET estado = ? WHERE id = ?';
-    const [result] = await db.execute(sql, [estado, id]);
+    const sql = 'UPDATE reservas SET estado = $1 WHERE id = $2';
+    const { rowCount } = await db.query(sql, [estado, id]);
 
-    if (result.affectedRows === 0) {
+    if (rowCount === 0) {
       return res.status(404).json({ ok: false, message: 'Reserva no encontrada.' });
     }
 

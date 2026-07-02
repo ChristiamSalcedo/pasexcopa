@@ -1,5 +1,5 @@
 /* ============================================================
-   ROUTES/CONTACTO.JS — Rutas de /api/contacto (Migrado a MySQL)
+   ROUTES/CONTACTO.JS — Rutas de /api/contacto (Migrado a PostgreSQL/Supabase)
 ============================================================ */
 
 'use strict';
@@ -63,10 +63,10 @@ router.post('/', contactoValidations, async (req, res) => {
   try {
     const sql = `
       INSERT INTO contactos (nombre, apellido, email, telefono, pais, mensaje, case_number)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
     `;
     
-    await db.execute(sql, [
+    await db.query(sql, [
       nombre, 
       apellido, 
       email, 
@@ -134,8 +134,8 @@ router.post('/newsletter', newsletterValidations, async (req, res) => {
   const { email } = req.body;
 
   try {
-    const sql = 'INSERT IGNORE INTO suscriptores (email) VALUES (?)';
-    await db.execute(sql, [email]);
+    const sql = 'INSERT INTO suscriptores (email) VALUES ($1) ON CONFLICT (email) DO NOTHING';
+    await db.query(sql, [email]);
 
     await sendMail({
       to:      email,
@@ -160,9 +160,9 @@ router.post('/newsletter', newsletterValidations, async (req, res) => {
 ---------------------------------------------------------- */
 router.get('/', async (req, res) => {
   try {
-    const [mensajes] = await db.query('SELECT * FROM contactos ORDER BY created_at DESC');
+    const { rows } = await db.query('SELECT * FROM contactos ORDER BY created_at DESC');
 
-    return res.json({ ok: true, data: mensajes });
+    return res.json({ ok: true, data: rows });
   } catch (err) {
     console.error('[GET /api/contacto]', err.message);
     return res.status(500).json({ ok: false, message: 'Error interno del servidor.' });

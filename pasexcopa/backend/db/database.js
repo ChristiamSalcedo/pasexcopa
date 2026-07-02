@@ -1,6 +1,6 @@
 /* ============================================================
-   DATABASE.JS — Conexión e inicialización de MySQL
-   Utiliza un Pool de conexiones para optimizar el rendimiento.
+   DATABASE.JS — Conexión e inicialización de PostgreSQL (Supabase)
+   Utiliza un Pool de conexiones optimizado para producción.
 ============================================================ */
 
 'use strict';
@@ -8,35 +8,33 @@
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
-const mysql = require('mysql2');
+// Cambiamos el driver de mysql2 al de postgres (pg)
+const { Pool } = require('pg');
 
 /* ----------------------------------------------------------
    CONFIGURACIÓN DEL POOL
-   Levanta las credenciales de forma segura desde el .env
+   Levanta la URI de forma segura desde el .env
 ---------------------------------------------------------- */
-const pool = mysql.createPool({
-  host:            process.env.DB_HOST     || 'localhost',
-  user:            process.env.DB_USER     || 'root',
-  password:        process.env.DB_PASSWORD,
-  database:        process.env.DB_NAME     || 'pasexcopa',
-  port:            Number(process.env.DB_PORT) || 3306,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false // Requerido para conexiones seguras en la nube
+  }
 });
-
-const poolPromise = pool.promise();
 
 /* ----------------------------------------------------------
    VERIFICACIÓN DE CONEXIÓN (Prueba de fuego)
 ---------------------------------------------------------- */
-poolPromise.getConnection()
-  .then(connection => {
-    console.log('✓ Conexión exitosa a la base de datos MySQL [pasexcopa]');
-    connection.release(); 
+pool.connect()
+  .then(client => {
+    console.log('✓ Conexión exitosa a la base de datos PostgreSQL [Supabase - pasexcopa]');
+    client.release(); // Liberamos el cliente de vuelta al pool
   })
   .catch(err => {
-    console.error('❌ Error crítico al conectar a MySQL:', err.message);
+    console.error('❌ Error crítico al conectar a PostgreSQL:', err.message);
   });
 
-module.exports = poolPromise;
+// Exportamos una interfaz basada en promesas compatible con lo que ya tenías
+module.exports = {
+  query: (text, params) => pool.query(text, params)
+};
