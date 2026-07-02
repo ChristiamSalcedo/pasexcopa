@@ -65,6 +65,13 @@ app.get('/api/health', (_req, res) => {
 });
 
 /* ----------------------------------------------------------
+   CONFIGURACIÓN DE GOOGLE MAPS SEGURA
+---------------------------------------------------------- */
+app.get('/api/config/maps', (_req, res) => {
+  res.json({ apiKey: process.env.GOOGLE_MAPS_KEY || '' });
+});
+
+/* ----------------------------------------------------------
    MANEJADOR DE RUTAS NO ENCONTRADAS (404)
 ---------------------------------------------------------- */
 app.use((_req, res) => {
