@@ -169,7 +169,9 @@ const ContactForm = (() => {
       nombre:   form.querySelector('#c-nombre').value.trim(),
       apellido: form.querySelector('#c-apellido').value.trim(),
       email:    form.querySelector('#c-email').value.trim(),
-      telefono: _iti ? _iti.getNumber() : form.querySelector('#c-telefono').value.trim(), 
+      telefono: (_iti && _iti.getNumber && _iti.getNumber()) 
+  ? _iti.getNumber() 
+  : form.querySelector('#c-telefono').value.trim() || null, 
       pais:     form.querySelector('#c-pais').value.trim(),
       mensaje:  form.querySelector('#c-mensaje').value.trim()
     };

@@ -52,7 +52,7 @@ const contactoValidations = [
    POST /api/contacto — Guardar mensaje y enviar emails
 ---------------------------------------------------------- */
 router.post('/', contactoValidations, async (req, res) => {
-
+  console.log("BODY COMPLETO:", req.body);
   console.log("========== NUEVA PETICIÓN CONTACTO ==========");
 
   const errors = validationResult(req);
@@ -90,7 +90,7 @@ router.post('/', contactoValidations, async (req, res) => {
       nombre,
       apellido,
       email,
-      telefono || null,
+      telefono && telefono.trim() !== '' ? telefono : null,
       pais || null,
       mensaje,
       caseNumber
