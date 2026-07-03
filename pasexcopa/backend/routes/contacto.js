@@ -52,33 +52,59 @@ const contactoValidations = [
    POST /api/contacto — Guardar mensaje y enviar emails
 ---------------------------------------------------------- */
 router.post('/', contactoValidations, async (req, res) => {
-  console.log("¡SÍ! Está entrando al archivo de contacto correcto.");
+
+  console.log("========== NUEVA PETICIÓN CONTACTO ==========");
+
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
-    return res.status(422).json({ ok: false, errors: errors.array() });
+    console.log("❌ Error de validación:");
+    console.log(errors.array());
+
+    return res.status(422).json({
+      ok: false,
+      errors: errors.array()
+    });
   }
 
+  console.log("✅ Validaciones OK");
+
   const { nombre, apellido, email, telefono, pais, mensaje } = req.body;
+
+  console.log("📩 Datos recibidos:");
+  console.log(req.body);
+
   const caseNumber = generateCaseNumber();
-  const fullName   = `${nombre} ${apellido}`;
+  const fullName = `${nombre} ${apellido}`;
 
   try {
+
+    console.log("1️⃣ Antes del INSERT");
+
     const sql = `
       INSERT INTO contactos (nombre, apellido, email, telefono, pais, mensaje, case_number)
-      VALUES ($1, $2, $3, $4, $5, $6, $7)
+      VALUES ($1,$2,$3,$4,$5,$6,$7)
     `;
-    
+
     await db.query(sql, [
-      nombre, 
-      apellido, 
-      email, 
-      telefono || null, 
-      pais || null, 
-      mensaje, 
+      nombre,
+      apellido,
+      email,
+      telefono || null,
+      pais || null,
+      mensaje,
       caseNumber
     ]);
 
-    await sendMail({
+    console.log("2️⃣ INSERT realizado correctamente");
+
+    // LOS SENDMAIL SIGUEN COMENTADOS
+
+    console.log("3️⃣ Saltando envío de correos");
+
+    console.log("4️⃣ Enviando respuesta al frontend");
+
+    /*await sendMail({
       to:      process.env.ADMIN_EMAIL,
       subject: `[PaseXcopa] Nuevo contacto de ${fullName} — Caso #${caseNumber}`,
       html: `
@@ -104,17 +130,27 @@ router.post('/', contactoValidations, async (req, res) => {
         <br/>
         <p>Gracias por comunicarte con paseXcopa.</p>
       `,
-    });
+    });*/
 
     return res.status(201).json({
-      ok:          true,
-      message:     'Mensaje recibido correctamente.',
+      ok: true,
+      message: 'Mensaje recibido correctamente.',
       case_number: caseNumber,
     });
+
   } catch (err) {
-    console.error('[POST /api/contacto]', err.message);
-    return res.status(500).json({ ok: false, message: 'Error interno del servidor.' });
+
+    console.error("💥 ERROR EN CONTACTO");
+    console.error(err);
+    console.error(err.stack);
+
+    return res.status(500).json({
+      ok: false,
+      message: err.message
+    });
+
   }
+
 });
 
 /* ----------------------------------------------------------
