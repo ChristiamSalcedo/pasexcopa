@@ -96,13 +96,9 @@ router.post('/', contactoValidations, async (req, res) => {
       caseNumber
     ]);
 
-    console.log("2️⃣ INSERT realizado correctamente");
+    console.log("2️ INSERT realizado correctamente");
 
-    // LOS SENDMAIL SIGUEN COMENTADOS
-
-    console.log("3️⃣ Enviando correo al ADMIN...");
-
-    console.log("4️⃣ Enviando respuesta al frontend");
+    console.log("3️ Enviando correo al ADMIN...");
 
     await sendMail({
       to:      process.env.ADMIN_EMAIL,
@@ -120,7 +116,10 @@ router.post('/', contactoValidations, async (req, res) => {
       `,
     });
 
-    await sendMail({
+    console.log("4️⃣ Enviando correo de confirmación al CLIENTE (en segundo plano)...");
+
+    // 🛠️ FIX: Se quitó el "await" aquí para que corra en background y no genere un Connection Timeout
+    sendMail({
       to:      email,
       subject: 'Tu correo fue enviado exitosamente a pase por copa.',
       html: `
@@ -130,7 +129,9 @@ router.post('/', contactoValidations, async (req, res) => {
         <br/>
         <p>Gracias por comunicarte con paseXcopa.</p>
       `,
-    });
+    }).catch(mailErr => console.error("💥 Error enviando correo al cliente:", mailErr.message));
+
+    console.log("5️⃣ Enviando respuesta al frontend");
 
     return res.status(201).json({
       ok: true,
