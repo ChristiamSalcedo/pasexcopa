@@ -100,11 +100,11 @@ router.post('/', contactoValidations, async (req, res) => {
 
     // LOS SENDMAIL SIGUEN COMENTADOS
 
-    console.log("3️⃣ Saltando envío de correos");
+    console.log("3️⃣ Enviando correo al ADMIN...");
 
     console.log("4️⃣ Enviando respuesta al frontend");
 
-    /*await sendMail({
+    await sendMail({
       to:      process.env.ADMIN_EMAIL,
       subject: `[PaseXcopa] Nuevo contacto de ${fullName} — Caso #${caseNumber}`,
       html: `
@@ -130,7 +130,7 @@ router.post('/', contactoValidations, async (req, res) => {
         <br/>
         <p>Gracias por comunicarte con paseXcopa.</p>
       `,
-    });*/
+    });
 
     return res.status(201).json({
       ok: true,
