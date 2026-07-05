@@ -20,7 +20,7 @@ const transporter = nodemailer.createTransport({
   secure: false, // false para puerto 587
   auth: {
     user: process.env.SMTP_USER || 'salcedochristian04@gmail.com', 
-    pass: process.env.SMTP_PASS // 
+    pass: process.env.SMTP_PASS // 👈 Ahora sí lee la clave nueva de 16 letras desde Render
   },
 });
 
@@ -52,9 +52,8 @@ const contactoValidations = [
    POST /api/contacto — Guardar mensaje y enviar emails
 ---------------------------------------------------------- */
 router.post('/', contactoValidations, async (req, res) => {
-
-  console.log("========== NUEVA PETICIÓN CONTACTO ==========");
   console.log("BODY COMPLETO:", req.body);
+  console.log("========== NUEVA PETICIÓN CONTACTO ==========");
 
   const errors = validationResult(req);
 
@@ -71,6 +70,9 @@ router.post('/', contactoValidations, async (req, res) => {
   console.log("✅ Validaciones OK");
 
   const { nombre, apellido, email, telefono, pais, mensaje } = req.body;
+
+  console.log("📩 Datos recibidos:");
+  console.log(req.body);
 
   const caseNumber = generateCaseNumber();
   const fullName = `${nombre} ${apellido}`;
@@ -96,60 +98,39 @@ router.post('/', contactoValidations, async (req, res) => {
 
     console.log("2️⃣ INSERT realizado correctamente");
 
-    /* ===========================
-       EMAIL ADMIN
-    =========================== */
+    // LOS SENDMAIL SIGUEN COMENTADOS
+
     console.log("3️⃣ Enviando correo al ADMIN...");
 
-    try {
-      await sendMail({
-        to: process.env.ADMIN_EMAIL,
-        subject: `[PaseXcopa] Nuevo contacto de ${fullName} — Caso #${caseNumber}`,
-        html: `
-          <h2>Nuevo mensaje de contacto</h2>
-          <p><strong>Caso:</strong> #${caseNumber}</p>
-          <p><strong>Nombre:</strong> ${fullName}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Teléfono:</strong> ${telefono || '—'}</p>
-          <p><strong>País:</strong> ${pais || '—'}</p>
-          <hr/>
-          <p><strong>Mensaje:</strong></p>
-          <p>${mensaje.replace(/\n/g, '<br/>')}</p>
-        `,
-      });
+    console.log("4️⃣ Enviando respuesta al frontend");
 
-      console.log("3.1️⃣ Email admin enviado OK");
+    await sendMail({
+      to:      process.env.ADMIN_EMAIL,
+      subject: `[PaseXcopa] Nuevo contacto de ${fullName} — Caso #${caseNumber}`,
+      html: `
+        <h2>Nuevo mensaje de contacto</h2>
+        <p><strong>Caso:</strong> #${caseNumber}</p>
+        <p><strong>Nombre:</strong> ${fullName}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Teléfono:</strong> ${telefono || '—'}</p>
+        <p><strong>País:</strong> ${pais || '—'}</p>
+        <hr/>
+        <p><strong>Mensaje:</strong></p>
+        <p>${mensaje.replace(/\n/g, '<br/>')}</p>
+      `,
+    });
 
-    } catch (mailErr) {
-      console.error("⚠ Error enviando email ADMIN:", mailErr.message);
-    }
-
-    /* ===========================
-       EMAIL CLIENTE
-    =========================== */
-    console.log("4️⃣ Enviando correo al CLIENTE...");
-
-    try {
-      await sendMail({
-        to: email,
-        subject: 'Hemos recibido tu mensaje en PaseXcopa',
-        html: `
-          <p>Hola ${fullName},</p>
-          <p>Hemos recibido tu mensaje correctamente.</p>
-          <p>Tu número de caso es: <strong>${caseNumber}</strong></p>
-          <p>Te responderemos dentro de las próximas 24hs hábiles.</p>
-          <br/>
-          <p>Gracias por contactarnos.</p>
-        `,
-      });
-
-      console.log("4.1️⃣ Email cliente enviado OK");
-
-    } catch (mailErr) {
-      console.error("⚠ Error enviando email CLIENTE:", mailErr.message);
-    }
-
-    console.log("5️⃣ Enviando respuesta al frontend");
+    await sendMail({
+      to:      email,
+      subject: 'Tu correo fue enviado exitosamente a pase por copa.',
+      html: `
+        <p>Hemos recibido de forma exitosa tu mensaje.</p>
+        <p>Te asignaremos el siguiente número de caso para atender tu solicitud lo antes posible: <strong>${caseNumber}</strong>.</p>
+        <p>Te contactaremos dentro de las próximas 24 hs. hábiles.</p>
+        <br/>
+        <p>Gracias por comunicarte con paseXcopa.</p>
+      `,
+    });
 
     return res.status(201).json({
       ok: true,
@@ -167,7 +148,9 @@ router.post('/', contactoValidations, async (req, res) => {
       ok: false,
       message: err.message
     });
+
   }
+
 });
 
 /* ----------------------------------------------------------
